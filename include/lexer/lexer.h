@@ -4,13 +4,10 @@
 enum class TokenType {
     EOF_TOKEN,
     INT,
-    IDENT,
     PLUS,
     MINUS,
     STAR,
-    SLASH,
-    ASSIGN,
-    SEMICOLON
+    SLASH
 };
 
 struct Token {
@@ -21,7 +18,7 @@ struct Token {
 class Lexer {
 public:
     explicit Lexer(const std::string& src);
-    Token nextToken();
+    Token next();
 
 private:
     std::string source;

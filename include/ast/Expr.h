@@ -2,18 +2,12 @@
 #include "AST.h"
 #include <string>
 
-struct Expr : ASTNode {
-    virtual ~Expr() = default;
-};
+struct Expr : ASTNode {};
 
 struct IntLiteral : Expr {
     int value;
     explicit IntLiteral(int v) : value(v) {}
-};
-
-struct VarExpr : Expr {
-    std::string name;
-    explicit VarExpr(const std::string& n) : name(n) {}
+    llvm::Value* codegen(CodeGenContext&) override;
 };
 
 struct BinaryExpr : Expr {
@@ -23,4 +17,6 @@ struct BinaryExpr : Expr {
 
     BinaryExpr(char o, Expr* l, Expr* r)
         : op(o), lhs(l), rhs(r) {}
+
+    llvm::Value* codegen(CodeGenContext&) override;
 };

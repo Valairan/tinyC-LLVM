@@ -15,7 +15,7 @@ void Lexer::skipWhitespace() {
     while (std::isspace(peek())) get();
 }
 
-Token Lexer::nextToken() {
+Token Lexer::next() {
     skipWhitespace();
 
     char c = peek();
@@ -29,21 +29,12 @@ Token Lexer::nextToken() {
         return {TokenType::INT, num};
     }
 
-    if (std::isalpha(c)) {
-        std::string id;
-        while (std::isalnum(peek()))
-            id += get();
-        return {TokenType::IDENT, id};
-    }
-
     get();
     switch (c) {
         case '+': return {TokenType::PLUS, "+"};
         case '-': return {TokenType::MINUS, "-"};
         case '*': return {TokenType::STAR, "*"};
         case '/': return {TokenType::SLASH, "/"};
-        case '=': return {TokenType::ASSIGN, "="};
-        case ';': return {TokenType::SEMICOLON, ";"};
         default:  return {TokenType::EOF_TOKEN, ""};
     }
 }

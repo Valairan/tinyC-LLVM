@@ -5,12 +5,14 @@
 class Parser {
 public:
     explicit Parser(Lexer& lexer);
-
-    Expr* parseExpression();
+    Expr* parse();
 
 private:
     Lexer& lexer;
     Token current;
 
     void advance();
+    Expr* parsePrimary();
+    Expr* parseBinaryRHS(int prec, Expr* lhs);
+    int precedence(TokenType type);
 };
